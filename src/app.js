@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', InsertTitle);
 const text = document.createElement('textarea');
 
 const board = document.createElement('div');
-board.className = ('board');
+board.className = 'board';
 
 function InsertTextArea() {
   text.className = 'text';
-  text.setAttribute('autofocus','true');
+  text.setAttribute('autofocus', 'true');
   text.setAttribute('rows', '20');
   text.setAttribute('cols', '100');
   text.setAttribute('name', 'display');
@@ -86,47 +86,61 @@ const listSimbols = [
   'Left',
   'Down',
   'Right',
-  'Ctrl'];
- 
-
+  'Ctrl',
+];
 
 function InsertButtons() {
   let btn = '';
   const alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
 
   for (let i = 0; i < listSimbols.length; i += 1) {
-    if (listSimbols[i] === 'Backspace' || listSimbols[i] === 'Shift' || listSimbols[i] === 'Caps Lock' || listSimbols[i] === 'Enter') {
-      btn += '<div class="btn long" data="'
-       + `${listSimbols[i]}"`
-    + '>'
-     + '<span class = "inner">'
-     + `${listSimbols[i]}`
-     + '</span>'
-     + '</div>';
+    if (
+      listSimbols[i] === 'Backspace'
+      || listSimbols[i] === 'Shift'
+      || listSimbols[i] === 'Caps Lock'
+    ) {
+      btn
+        += '<div class="btn long" data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + '<span class = "inner">'
+        + `${listSimbols[i]}`
+        + '</span>'
+        + '</div>';
+    } else if (listSimbols[i] === 'Enter') {
+      btn
+        += '<div class="btn long enter">'
+        + '<span class = "inner">'
+        + `${listSimbols[i]}`
+        + '</span>'
+        + '</div>';
     } else if (listSimbols[i] === ' ') {
-      btn += '<div class="btn longest" data="'
-      + `${listSimbols[i]}"`
-   + '>'
-     + '<span class = "inner">'
-     + `${listSimbols[i]}`
-     + '</span>'
-     + '</div>';
+      btn
+        += '<div class="btn longest" data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + '<span class = "inner">'
+        + `${listSimbols[i]}`
+        + '</span>'
+        + '</div>';
     } else if (alphabet.includes(listSimbols[i])) {
-      btn += '<div class="btn key" data="'
-      + `${listSimbols[i]}"`
-   + '>'
+      btn
+        += '<div class="btn key" data="'
+        + `${listSimbols[i]}"`
+        + '>'
         + '<span class = "inner">'
         + `${listSimbols[i]}`
         + '</span>'
         + '</div>';
     } else {
-      btn += '<div class="btn" data="'
-      + `${listSimbols[i]}"`
-   + '>'
-     + '<span class = "inner">'
-     + `${listSimbols[i]}`
-     + '</span>'
-     + '</div>';
+      btn
+        += '<div class="btn" data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + '<span class = "inner">'
+        + `${listSimbols[i]}`
+        + '</span>'
+        + '</div>';
     }
     board.innerHTML = btn;
   }
@@ -135,6 +149,8 @@ document.addEventListener('DOMContentLoaded', InsertButtons);
 
 function print(event) {
   const target = event.target.closest('.btn').getAttribute('data');
-  text.textContent += target;
+  if (target !== null) {
+    text.textContent += target;
+  }
 }
 board.addEventListener('click', print);

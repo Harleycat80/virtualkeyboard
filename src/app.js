@@ -228,9 +228,10 @@ function KeyDown(e) {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'CapsLock' && !capLock) {
-    return (capLock = true);
+    capLock = true;
+    return;
   } if (e.key === 'CapsLock' && capLock) {
-    return (capLock = false);
+    capLock = false;
   }
 });
 
@@ -239,7 +240,7 @@ document.addEventListener('keydown', KeyDown);
 function KeyUp(e) {
   const target = e.key;
   const I = Array.from(board.querySelectorAll('[data-keys]'));
-  for (let i = 0; i < I.length; i++) {
+  for (let i = 0; i < I.length; i += 1) {
     if (I[i].dataset.keys === target && I[i].dataset.keys !== 'CapsLock') {
       I[i].classList.remove('active');
     } else if (

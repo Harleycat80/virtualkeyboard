@@ -49,7 +49,7 @@ h1{
    font-weight: 400;
 }
 .key{
-text-transform: uppercase;
+text-transform:capitalize;
 }
 .long{
    width: 130px;
@@ -59,5 +59,8 @@ text-transform: uppercase;
 }
 
 .btn:hover{
+   background-color: rgb(220, 185, 160);
+}
+.active{
    background-color: rgb(220, 185, 160);
 }

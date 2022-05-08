@@ -7,7 +7,10 @@ let shift = false;
 let lang = true;
 const board = document.createElement('div');
 board.className = 'board';
-
+const instruction =document.createElement('h2');
+const instruction2 =document.createElement('h2');
+instruction2.textContent="Windows 10"
+instruction.textContent="Перeключениe языков Ctrl+Shift"
 function InsertTextArea() {
   text.className = 'text';
   text.setAttribute('autofocus', 'true');
@@ -18,6 +21,7 @@ function InsertTextArea() {
 
   document.body.prepend(board);
   document.body.prepend(text);
+  
 }
 InsertTextArea();
 
@@ -27,6 +31,8 @@ function InsertTitle() {
   document.body.prepend(title);
 }
 InsertTitle();
+document.body.append(instruction2);
+document.body.append(instruction);
 const arrEn = [
   '~',
   '!',
@@ -367,7 +373,7 @@ document.addEventListener('click', (e) => {
 
 let CaretPos = 0;
 function print(event) {
-  let target = event.target.getAttribute('data');
+  const target = event.target.getAttribute('data');
   if (target !== null && !capLock && !shift) {
     text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(
       CaretPos,

@@ -274,15 +274,32 @@ function ShiftCharsInsert() {
 function ShiftActivity(e) {
   if (e.target.textContent === 'Shift') {
     shift = true;
+    console.log(shift)
   }
-}
+  }
+
 function ShiftActivityOf(e) {
   if (e.target.textContent === 'Shift') {
     shift = false;
+    
   }
 }
-document.addEventListener('mouseover', ShiftActivity);
-document.addEventListener('mouseout', ShiftActivityOf);
+function ShiftActivity2(e) {
+  if (e.key === 'Shift') {
+    shift = true;
+    console.log(shift)
+  }
+}
+function ShiftActivityOf2(e) {
+  if (e.key === 'Shift') {
+    shift = false;
+    console.log(shift)
+  }
+}
+document.addEventListener('mousedown', ShiftActivity);
+document.addEventListener('mouseup', ShiftActivityOf);
+document.addEventListener('keydown', ShiftActivity2);
+document.addEventListener('keyup', ShiftActivityOf2);
 
 InsertButtons();
 
@@ -346,18 +363,19 @@ document.addEventListener('click', (e) => {
   }
   return capLock;
 });
+
+
 let CaretPos = 0;
 function print(event) {
-  const target = event.target.getAttribute('data');
-
-  if (target !== null && !capLock) {
+  let target = event.target.getAttribute('data');
+  if (target !== null && !capLock && !shift) {
     text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(
       CaretPos,
       text.textContent.length,
     ));
     text.value = text.textContent;
     CaretPos++;
-  } else if (target !== null && capLock) {
+  } else if (target !== null && (capLock||shift)) {
     text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
     text.value = text.textContent;
     CaretPos++;
@@ -365,7 +383,6 @@ function print(event) {
 }
 function printKey(event) {
   const target = event.key;
-
   const list = [
     'Backspace',
     'Control',
@@ -552,3 +569,13 @@ function langChange(e) {
 }
 
 document.addEventListener('keydown', langChange);
+
+
+
+function ShiftKey(e){
+if(shift){
+
+}
+}
+
+document.addEventListener('keyup',(e)=>{console.log(e.key)})

@@ -1,17 +1,20 @@
-const text = document.createElement("textarea");
+/* eslint-disable no-multi-assign */
+/* eslint-disable max-len */
+/* eslint-disable no-plusplus */
+const text = document.createElement('textarea');
 let capLock = false;
-const shift = false;
-let lang= true
-const board = document.createElement("div");
-board.className = "board";
+let shift = false;
+let lang = true;
+const board = document.createElement('div');
+board.className = 'board';
 
 function InsertTextArea() {
-  text.className = "text";
-  text.setAttribute("autofocus", "true");
-  text.setAttribute("rows", "20");
-  text.setAttribute("cols", "100");
-  text.setAttribute("name", "display");
-  text.setAttribute("id", "textinput");
+  text.className = 'text';
+  text.setAttribute('autofocus', 'true');
+  text.setAttribute('rows', '20');
+  text.setAttribute('cols', '100');
+  text.setAttribute('name', 'display');
+  text.setAttribute('id', 'textinput');
 
   document.body.prepend(board);
   document.body.prepend(text);
@@ -19,480 +22,533 @@ function InsertTextArea() {
 InsertTextArea();
 
 function InsertTitle() {
-  const title = document.createElement("h1");
-  title.textContent = "Virtual KeyBoard";
+  const title = document.createElement('h1');
+  title.textContent = 'Virtual KeyBoard';
   document.body.prepend(title);
 }
 InsertTitle();
-
+const arrEn = [
+  '~',
+  '!',
+  '@',
+  '#',
+  '$',
+  '%',
+  '^',
+  '&',
+  '*',
+  '(',
+  ')',
+  '_',
+  '+',
+  '{',
+  '}',
+  '|',
+  ':',
+  '"',
+  '<',
+  '>',
+  '?',
+];
+const arrRu = ['~', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', '{',
+  '}',
+  '/', ':', '"', '<', '>', ','];
 const listSimbols = [
   '`',
   '1',
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "-",
-  "=",
-  "Backspace",
-  "Tab",
-  "q",
-  "w",
-  "e",
-  "r",
-  "t",
-  "y",
-  "u",
-  "i",
-  "o",
-  "p",
-  "[",
-  "]",
-  "\\",
-  "Delete",
-  "CapsLock",
-  "a",
-  "s",
-  "d",
-  "f",
-  "g",
-  "h",
-  "j",
-  "k",
-  "l",
-  ";",
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'Tab',
+  'q',
+  'w',
+  'e',
+  'r',
+  't',
+  'y',
+  'u',
+  'i',
+  'o',
+  'p',
+  '[',
+  ']',
+  '\\',
+  'Delete',
+  'CapsLock',
+  'a',
+  's',
+  'd',
+  'f',
+  'g',
+  'h',
+  'j',
+  'k',
+  'l',
+  ';',
   "'",
-  "Enter",
-  "Shift",
-  "z",
-  "x",
-  "c",
-  "v",
-  "b",
-  "n",
-  "m",
-  ",",
-  ".",
-  "/",
-  "ArrowUp",
-  "Shift",
-  "Control",
-  "Meta",
-  "Alt",
-  " ",
-  "Alt",
-  "ArrowLeft",
-  "ArrowDown",
-  "ArrowRight",
-  "Control",
+  'Enter',
+  'Shift',
+  'z',
+  'x',
+  'c',
+  'v',
+  'b',
+  'n',
+  'm',
+  ',',
+  '.',
+  '/',
+  'ArrowUp',
+  'Shift',
+  'Control',
+  'Meta',
+  'Alt',
+  ' ',
+  'Alt',
+  'ArrowLeft',
+  'ArrowDown',
+  'ArrowRight',
+  'Control',
 ];
 
 function InsertButtons() {
-  let btn = "";
-  const alphabet = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  let btn = '';
+  const alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
 
   for (let i = 0; i < listSimbols.length; i += 1) {
     if (
-      listSimbols[i] === "Backspace" ||
-      listSimbols[i] === "Shift" ||
-      listSimbols[i] === "CapsLock" ||
-      listSimbols[i] === "Shift"
+      listSimbols[i] === 'Backspace'
+      || listSimbols[i] === 'Shift'
+      || listSimbols[i] === 'CapsLock'
+      || listSimbols[i] === 'Shift'
     ) {
-      btn +=
-        '<div class="btn long" data-keys="' +
-        `${listSimbols[i]}` +
-        '">' +
-        `${listSimbols[i]}` +
-        "</div>";
-    } else if (listSimbols[i] === "Enter") {
-      btn +=
-        '<div class="btn long enter" data = "\n" data-keys="' +
-        `${listSimbols[i]}` +
-        '">' +
-        `${listSimbols[i]}` +
-        "</div>";
-    } else if (listSimbols[i] === " ") {
-      btn +=
-        '<div class="btn longest"  data-keys="' +
-        `${listSimbols[i]}` +
-        '"data="' +
-        `${listSimbols[i]}"` +
-        ">" +
-        `${listSimbols[i]}` +
-        "</div>";
+      btn
+        += '<div class="btn key long" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + `${listSimbols[i]}`
+        + '</div>';
+    } else if (listSimbols[i] === 'Enter') {
+      btn
+        += '<div class="btn key keylong enter" data = "\n" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + `${listSimbols[i]}`
+        + '</div>';
+    } else if (listSimbols[i] === ' ') {
+      btn
+        += '<div class="btn key longest"  data-keys="'
+        + `${listSimbols[i]}`
+        + '"data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + `${listSimbols[i]}`
+        + '</div>';
     } else if (alphabet.includes(listSimbols[i])) {
-      btn +=
-        '<div class="btn key"  data-keys="' +
-        `${listSimbols[i]}` +
-        '" data="' +
-        `${listSimbols[i]}"` +
-        ">" +
-        `${listSimbols[i]}` +
-        "</div>";
-    } else if (listSimbols[i] === "Meta") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}` +
-        '">' +
-        "Win" +
-        "</div>";
-    } else if (listSimbols[i] === "Delete") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}` +
-        '">' +
-        "Delete" +
-        "</div>";
-    } else if (listSimbols[i] === "Control") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}` +
-        '">' +
-        "Ctrl" +
-        "</div>";
-    } else if (listSimbols[i] === "Tab") {
-      btn +=
-        '<div class="btn" data="\t"  data-keys = "' +
-        `${listSimbols[i]}` +
-        '">' +
-        `${listSimbols[i]}` +
-        "</div>";
-    } else if (listSimbols[i] === "Alt") {
-      btn +=
-        '<div class="btn" data-keys ="Alt">' + `${listSimbols[i]}` + "</div>";
-    } else if (listSimbols[i] === "ArrowUp") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}"` +
-        ' data="&uarr;">' +
-        "&uarr;" +
-        "</div>";
-    } else if (listSimbols[i] === "ArrowLeft") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}"` +
-        ' data="&larr;">' +
-        "&larr;" +
-        "</div>";
-    } else if (listSimbols[i] === "ArrowRight") {
-      btn +=
-        '<div class="btn key" data-keys="' +
-        `${listSimbols[i]}"` +
-        ' data="&rarr;">' +
-        "&rarr;" +
-        "</div>";
-    } else if (listSimbols[i] === "ArrowDown") {
-      btn +=
-        '<div class="btn key"  data-keys="' +
-        `${listSimbols[i]}"` +
-        ' data="&darr;">' +
-        "&darr;" +
-        "</div>";
+      btn
+        += '<div class="btn key letter"  data-keys="'
+        + `${listSimbols[i]}`
+        + '" data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + `${listSimbols[i]}`
+        + '</div>';
+    } else if (listSimbols[i] === 'Meta') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + 'Win'
+        + '</div>';
+    } else if (listSimbols[i] === 'Delete') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + 'Delete'
+        + '</div>';
+    } else if (listSimbols[i] === 'Control') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + 'Ctrl'
+        + '</div>';
+    } else if (listSimbols[i] === 'Tab') {
+      btn
+        += '<div class="btn key" data="\t"  data-keys = "'
+        + `${listSimbols[i]}`
+        + '">'
+        + `${listSimbols[i]}`
+        + '</div>';
+    } else if (listSimbols[i] === 'Alt') {
+      btn
+        // eslint-disable-next-line no-useless-concat
+        += '<div class="btn key" data-keys ="Alt">' + `${listSimbols[i]}` + '</div>';
+    } else if (listSimbols[i] === 'ArrowUp') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}"`
+        + ' data="&uarr;">'
+        + '&uarr;'
+        + '</div>';
+    } else if (listSimbols[i] === 'ArrowLeft') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}"`
+        + ' data="&larr;">'
+        + '&larr;'
+        + '</div>';
+    } else if (listSimbols[i] === 'ArrowRight') {
+      btn
+        += '<div class="btn key" data-keys="'
+        + `${listSimbols[i]}"`
+        + ' data="&rarr;">'
+        + '&rarr;'
+        + '</div>';
+    } else if (listSimbols[i] === 'ArrowDown') {
+      btn
+        += '<div class="btn key"  data-keys="'
+        + `${listSimbols[i]}"`
+        + ' data="&darr;">'
+        + '&darr;'
+        + '</div>';
     } else {
-      btn +=
-        '<div class="btn"  data-keys = "' +
-        `${listSimbols[i]}` +
-        '"data="' +
-        `${listSimbols[i]}"` +
-        ">" +
-        `${listSimbols[i]}` +
-        "</div>";
+      btn
+        += '<div class="btn key"  data-keys = "'
+        + `${listSimbols[i]}`
+        + '"data="'
+        + `${listSimbols[i]}"`
+        + '>'
+        + `${listSimbols[i]}`
+        + '</div>';
     }
     board.innerHTML = btn;
   }
 }
+// символы shift
+function VisibleShift() {
+  if (lang) {
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => {element.style.display = 'block'});
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => {element.style.display = 'none'});
+  } else {
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element)=> {element.style.display = 'block'});
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'});
+  }
+}
+function ShiftCharsInsert() {
+  const arr = document.querySelectorAll('.key');
+  for (let i = 0; i < 13; i++) {
+    arr[i].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[i]}` + '</span>');
+    arr[i].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[i]}` + '</span>');
+  }
+  arr[25].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[13]}` + '</span>');
+  arr[25].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[13]}` + '</span>');
+  arr[26].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[14]}` + '</span>');
+  arr[26].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[14]}` + '</span>');
+  arr[27].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[15]}` + '</span>');
+  arr[27].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[15]}` + '</span>');
+  arr[39].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[16]}` + '</span>');
+  arr[39].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[16]}` + '</span>');
+  arr[40].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[17]}` + '</span>');
+  arr[40].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[17]}` + '</span>');
+  arr[50].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[18]}` + '</span>');
+  arr[50].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[18]}` + '</span>');
+  arr[51].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[19]}` + '</span>');
+  arr[51].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[19]}` + '</span>');
+  arr[52].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[20]}` + '</span>');
+  arr[52].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[20]}` + '</span>');
+}
+
+// Shift
+
+function ShiftActivity(e) {
+  if (e.target.textContent === 'Shift') {
+    shift = true;
+  }
+}
+function ShiftActivityOf(e) {
+  if (e.target.textContent === 'Shift') {
+    shift = false;
+  }
+}
+document.addEventListener('mouseover', ShiftActivity);
+document.addEventListener('mouseout', ShiftActivityOf);
 
 InsertButtons();
 
+ShiftCharsInsert();
+VisibleShift();
+
+// подсветка кнопок
 function KeyDown(e) {
   const target = e.key;
 
-  const I = Array.from(board.querySelectorAll("[data-keys]"));
+  const I = Array.from(board.querySelectorAll('[data-keys]'));
   for (let i = 0; i < I.length; i += 1) {
-    if (I[i].dataset.keys === target && I[i].dataset.keys !== "CapsLock") {
-      I[i].classList.add("active");
+    if (I[i].dataset.keys === target && I[i].dataset.keys !== 'CapsLock') {
+      I[i].classList.add('active');
     } else if (
-      I[i].dataset.keys === target &&
-      I[i].dataset.keys === "CapsLock"
+      I[i].dataset.keys === target
+      && I[i].dataset.keys === 'CapsLock'
     ) {
-      I[i].classList.add("active");
+      I[i].classList.add('active');
     }
   }
 }
-document.addEventListener("keydown", KeyDown);
+document.addEventListener('keydown', KeyDown);
 
-document.addEventListener("keyup", (e) => {
-  if (e.key === "CapsLock" && !capLock) {
+document.addEventListener('keyup', (e) => {
+  if (e.key === 'CapsLock' && !capLock) {
     capLock = true;
     return;
   }
-  if (e.key === "CapsLock" && capLock) {
+  if (e.key === 'CapsLock' && capLock) {
     capLock = false;
   }
 });
 
 function KeyUp(e) {
   const target = e.key;
-  const I = Array.from(board.querySelectorAll("[data-keys]"));
+  const I = Array.from(board.querySelectorAll('[data-keys]'));
   for (let i = 0; i < I.length; i += 1) {
-    if (I[i].dataset.keys === target && I[i].dataset.keys !== "CapsLock") {
-      I[i].classList.remove("active");
+    if (I[i].dataset.keys === target && I[i].dataset.keys !== 'CapsLock') {
+      I[i].classList.remove('active');
     } else if (
-      I[i].dataset.keys === target &&
-      I[i].dataset.keys === "CapsLock" &&
-      !capLock
+      I[i].dataset.keys === target
+      && I[i].dataset.keys === 'CapsLock'
+      && !capLock
     ) {
-      I[i].classList.remove("active");
+      I[i].classList.remove('active');
     }
   }
 }
 
-document.addEventListener("keyup", KeyUp);
+document.addEventListener('keyup', KeyUp);
 
-//убить остальные кнопки
-
-
-
-
-
-
-document.addEventListener("click", (e) => {
-  if (e.target.textContent === "CapsLock" && !capLock) {
+// печать
+document.addEventListener('click', (e) => {
+  if (e.target.textContent === 'CapsLock' && !capLock) {
     capLock = true;
-    e.target.classList.add("active");
-  } else if (e.target.textContent === "CapsLock" && capLock) {
+    e.target.classList.add('active');
+  } else if (e.target.textContent === 'CapsLock' && capLock) {
     capLock = false;
-    e.target.classList.remove("active");
+    e.target.classList.remove('active');
   }
   return capLock;
 });
-let CaretPos=0
+let CaretPos = 0;
 function print(event) {
-  const target = event.target.getAttribute("data");
-  
-  
-  if (target !== null && !capLock) {
-    text.textContent =text.textContent.slice(0, CaretPos)+target+(text.textContent.slice(CaretPos,text.textContent.length))
-    text.value=text.textContent
-    CaretPos++
-    console.log(text.textContent)
-    console.log(CaretPos)
-  } 
-  
-  else if (target !== null && capLock) {
-    console.log(target)
-    text.textContent =text.textContent.slice(0, CaretPos)+target.toUpperCase()+(text.textContent.slice(CaretPos,text.textContent.length));
-    text.value=text.textContent
-    CaretPos++
-  
-  }
+  const target = event.target.getAttribute('data');
 
+  if (target !== null && !capLock) {
+    text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(
+      CaretPos,
+      text.textContent.length,
+    ));
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (target !== null && capLock) {
+    text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
+    text.value = text.textContent;
+    CaretPos++;
+  }
 }
 function printKey(event) {
   const target = event.key;
 
   const list = [
-    "Backspace",
-    "Control",
-    "Alt",
-    "Delete",
-    "Enter",
-    "ArrowLeft",
-  "ArrowDown",
-  "ArrowRight",
-  "ArrowUp",
-    "CapsLock",
-    "Shift",
-    "Tab",
-    "Meta",
+    'Backspace',
+    'Control',
+    'Alt',
+    'Delete',
+    'Enter',
+    'ArrowLeft',
+    'ArrowDown',
+    'ArrowRight',
+    'ArrowUp',
+    'CapsLock',
+    'Shift',
+    'Tab',
+    'Meta',
+    'F12',
+    'F11',
+    'F12',
+    'F10',
+    'F9',
+    'F8',
+    'F7',
+    'F6',
+    'F5',
+    'F4',
+    'F3',
+    'F2',
+    'F1',
+    'Escape',
+    'PageDown',
+    'PageUp',
+    'Insert',
+    'Home',
+    'End',
+    'NumLock',
+    'Pause',
+    'ScrollLock',
+    'PrintScreen',
+    'AltGraph',
   ];
-  if (list.indexOf(target) === -1 && !capLock) {
-    text.textContent =text.textContent.slice(0, CaretPos)+target+(text.textContent.slice(CaretPos,text.textContent.length))
-    text.value=text.textContent
-    CaretPos++
-    
-  
-    console.log(CaretPos)
-  } else if (list.indexOf(target) === -1 && capLock) {
-    text.textContent =text.textContent.slice(0, CaretPos)+target.toUpperCase()+(text.textContent.slice(CaretPos,text.textContent.length))
-    text.value=text.textContent
-    CaretPos++
-   
-   
-  } else if (list.indexOf(target) !== -1&& target === "Enter") {
-   text.innerHTML+= "\n"
-   CaretPos++
-    console.log(text.value)
-
-  }else if (list.indexOf(target) !== -1&& target === "Tab") {
-    text.innerHTML+= "\t"
-    CaretPos++
-     console.log(text.value)
- 
-   }
-
-} 
-
-
-
-text.onclick=()=>{
-  CaretPos= text.selectionStart=text.selectionEnd
-  
+  if (list.indexOf(target) === -1 && !capLock && !shift) {
+    // eslint-disable-next-line max-len
+    text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(CaretPos, text.textContent.length));
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (list.indexOf(target) === -1 && (capLock || shift)) {
+    text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (list.indexOf(target) !== -1 && target === 'Enter') {
+    text.innerHTML += '\n';
+    CaretPos++;
+  } else if (list.indexOf(target) !== -1 && target === 'Tab') {
+    text.innerHTML += '\t';
+    CaretPos++;
+  }
 }
 
+text.onclick = () => {
+  CaretPos = text.selectionStart = text.selectionEnd;
+};
+
+//  Backspace
 function Backspace(e) {
   const target = e.target.textContent;
 
-  
-  if (target === "Backspace" &&CaretPos===text.textContent.length) {  
+  if (target === 'Backspace' && CaretPos === text.textContent.length) {
+    text.textContent = text.textContent.slice(0, CaretPos - 1);
+    text.value = text.textContent;
+    CaretPos--;
+  } else if (target === 'Backspace' && CaretPos !== text.textContent.length) {
+    if (CaretPos === 0) {
+      return;
+    }
 
-  
-  
-   text.textContent = text.textContent.slice(0, CaretPos-1)
-   text.value=text.textContent
-  CaretPos--
-   if (CaretPos===0){
-    return
-  }  
+    text.textContent = text.textContent.slice(0, CaretPos - 1) + text.textContent.slice(CaretPos, text.textContent.length);
+    text.value = text.textContent;
+    CaretPos--;
+  } else if (target === 'Delete' && CaretPos !== text.textContent.length) {
+    text.textContent = text.textContent.slice(0, CaretPos) + text.textContent.slice(CaretPos + 1, text.textContent.length);
+    text.value = text.textContent;
   }
-  else if(target === "Backspace"&& CaretPos!==text.textContent.length){
-    if (CaretPos===0){
-      return
-    } 
-
-    text.textContent = text.textContent.slice(0, CaretPos-1)+text.textContent.slice(CaretPos,text.textContent.length)
-    text.value=text.textContent
-    CaretPos--
-
-    
-      
-      }
-  else if(target === "Delete"&& CaretPos!==text.textContent.length){
-    text.textContent = text.textContent.slice(0, CaretPos)+text.textContent.slice(CaretPos+1,text.textContent.length)
-    text.value=text.textContent
-  }
-     
-
-  }
-
+}
 
 function Backspace2(e) {
   const target = e.key;
 
-  if (target === "Backspace"&& CaretPos===text.textContent.length&& CaretPos!==0) {
-     text.textContent=text.textContent.slice(0, CaretPos-1)
-     text.value=text.textContent
-    
- CaretPos--
-    if (CaretPos===0){
-     return
-   }  
-   }
-   else if(target === "Backspace"&& CaretPos!==text.textContent.length && CaretPos!==0){
-     
-    text.textContent=text.textContent.slice(0, CaretPos-1)+text.textContent.slice(CaretPos,text.textContent.length)
-    text.value=text.textContent
-      --CaretPos
-     if (CaretPos===0){
-       return
-     }
-    
-       
-       }
-      
+  if (target === 'Backspace' && CaretPos === text.textContent.length && CaretPos !== 0) {
+    text.textContent = text.textContent.slice(0, CaretPos - 1);
+    text.value = text.textContent;
+
+    CaretPos--;
+  } else if (target === 'Backspace' && CaretPos !== text.textContent.length && CaretPos !== 0) {
+    text.textContent = text.textContent.slice(0, CaretPos - 1) + text.textContent.slice(CaretPos, text.textContent.length);
+    text.value = text.textContent;
+    --CaretPos;
+  }
 }
-
-document.addEventListener("keyup", Backspace2);
-board.addEventListener("click", Backspace);
-document.addEventListener("keyup", printKey);
-board.addEventListener("click", print);
-
+document.addEventListener('keyup', Backspace2);
+board.addEventListener('click', Backspace);
+document.addEventListener('keyup', printKey);
+board.addEventListener('click', print);
 
 // переход между языками
-const codeAllRu=['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\','Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'Б', 'Ю', '.']
-const codeAllEn =[
+const codeAllRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'];
+const codeAllEn = [
   '`',
   '1',
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "-",
-  "=",
-  "Backspace",
-  "Tab",
-  "q",
-  "w",
-  "e",
-  "r",
-  "t",
-  "y",
-  "u",
-  "i",
-  "o",
-  "p",
-  "[",
-  "]",
-  "\\",
-  "Delete",
-  "CapsLock",
-  "a",
-  "s",
-  "d",
-  "f",
-  "g",
-  "h",
-  "j",
-  "k",
-  "l",
-  ";",
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'Tab',
+  'q',
+  'w',
+  'e',
+  'r',
+  't',
+  'y',
+  'u',
+  'i',
+  'o',
+  'p',
+  '[',
+  ']',
+  '\\',
+  'Delete',
+  'CapsLock',
+  'a',
+  's',
+  'd',
+  'f',
+  'g',
+  'h',
+  'j',
+  'k',
+  'l',
+  ';',
   "'",
-  "Enter",
-  "Shift",
-  "z",
-  "x",
-  "c",
-  "v",
-  "b",
-  "n",
-  "m",
-  ",",
-  ".",
-  "/"]
+  'Enter',
+  'Shift',
+  'z',
+  'x',
+  'c',
+  'v',
+  'b',
+  'n',
+  'm',
+  ',',
+  '.',
+  '/'];
 
-function langChange(e){
-  if(e.ctrlKey&& e.shiftKey&&lang){
-    
-      console.log('Hi')
-      for(let i=0; i< codeAllRu.length; i++){
-    
-        board.querySelectorAll("[data-keys]")[i].textContent=codeAllRu[i];
-        lang=false
-      
+function langChange(e) {
+  if (e.ctrlKey && e.shiftKey && lang) {
+    for (let i = 0; i < codeAllRu.length; i++) {
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\n' && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
+        board.querySelectorAll('[data-keys]')[i].textContent = codeAllRu[i];
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
+      }
 
-  }
-  
-  }
-  else if(e.ctrlKey&& e.shiftKey&&!lang){
-    for(let i=0; i< codeAllEn.length; i++){
-      board.querySelectorAll("[data-keys]")[i].textContent=codeAllEn[i];
-      lang=true
-    }
+      lang = false;
+    }ShiftCharsInsert();
+    VisibleShift();
+  } else if (e.ctrlKey && e.shiftKey && !lang) {
+    for (let i = 0; i < codeAllEn.length; i++) {
+      board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
+      }
 
-
+      lang = true;
+    } ShiftCharsInsert();
+    VisibleShift();
   }
 }
-document.addEventListener('keydown',langChange)
 
-
-
+document.addEventListener('keydown', langChange);

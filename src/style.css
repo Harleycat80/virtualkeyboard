@@ -47,11 +47,15 @@ h1{
     color: beige;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
    font-size: 20px;
-   
+   position: relative;
    font-weight: 400;
 }
 .key{
 text-transform:capitalize;
+
+}
+.key:hover{
+   cursor: pointer;
 }
 .long{
    width: 130px;
@@ -65,4 +69,18 @@ text-transform:capitalize;
 }
 .active{
    background-color: rgb(220, 185, 160);
+}
+.shift{
+   display: none;
+}
+.shift-ru{
+   display: none;
+   color:red;
+}
+span{
+ 
+   text-align:left;
+   position: absolute;
+   left:8px;
+   top:2px;
 }

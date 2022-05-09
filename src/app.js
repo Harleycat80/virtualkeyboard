@@ -7,10 +7,10 @@ let shift = false;
 let lang = true;
 const board = document.createElement('div');
 board.className = 'board';
-const instruction =document.createElement('h2');
-const instruction2 =document.createElement('h2');
-instruction2.textContent="Windows 10"
-instruction.textContent="Перeключениe языков Ctrl+Shift"
+const instruction = document.createElement('h2');
+const instruction2 = document.createElement('h2');
+instruction2.textContent = 'Windows 10';
+instruction.textContent = 'Перeключениe языков Ctrl+Shift';
 function InsertTextArea() {
   text.className = 'text';
   text.setAttribute('autofocus', 'true');
@@ -21,7 +21,6 @@ function InsertTextArea() {
 
   document.body.prepend(board);
   document.body.prepend(text);
-  
 }
 InsertTextArea();
 
@@ -56,9 +55,29 @@ const arrEn = [
   '>',
   '?',
 ];
-const arrRu = ['~', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', '{',
+const arrRu = [
+  'Ё',
+  '!',
+  '"',
+  '№',
+  ';',
+  '%',
+  ':',
+  '?',
+  '*',
+  '(',
+  ')',
+  '_',
+  '+',
+  '{',
   '}',
-  '/', ':', '"', '<', '>', ','];
+  '/',
+  ':',
+  '"',
+  '<',
+  '>',
+  ',',
+];
 const listSimbols = [
   '`',
   '1',
@@ -125,17 +144,116 @@ const listSimbols = [
   'ArrowRight',
   'Control',
 ];
-
+const arr1En = [
+  '`',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  '[',
+  ']',
+  '\\',
+  ';',
+  "'",
+  ',',
+  '.',
+  '/',
+];
+const arr2En = ['~',
+  '!',
+  '@',
+  '#',
+  '$',
+  '%',
+  '^',
+  '&',
+  '*',
+  '(',
+  ')',
+  '_',
+  '+',
+  '{',
+  '}',
+  '|',
+  ':',
+  '"',
+  '<',
+  '>',
+  '?',
+];
+const arr1Ru = [
+  'Ё',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'х',
+  'ъ',
+  '\\',
+  'ж',
+  'э',
+  'б',
+  'ю',
+  '.',
+];
+const arr2Ru = [
+  'Ё',
+  '!',
+  '"',
+  '№',
+  ';',
+  '%',
+  ':',
+  '?',
+  '*',
+  '(',
+  ')',
+  '_',
+  '+',
+  'Х',
+  'Ъ',
+  '/',
+  'Ж',
+  'Э',
+  'Б',
+  'Ю',
+  ',',
+];
 function InsertButtons() {
   let btn = '';
   const alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
 
   for (let i = 0; i < listSimbols.length; i += 1) {
     if (
+      listSimbols[i] === 'Shift'
+    ) {
+      btn
+        += '<div class="btn key long shifter" data-keys="'
+        + `${listSimbols[i]}`
+        + '">'
+        + `${listSimbols[i]}`
+        + '</div>';
+    } else if (
       listSimbols[i] === 'Backspace'
       || listSimbols[i] === 'Shift'
       || listSimbols[i] === 'CapsLock'
-      || listSimbols[i] === 'Shift'
+
     ) {
       btn
         += '<div class="btn key long" data-keys="'
@@ -199,7 +317,9 @@ function InsertButtons() {
     } else if (listSimbols[i] === 'Alt') {
       btn
         // eslint-disable-next-line no-useless-concat
-        += '<div class="btn key" data-keys ="Alt">' + `${listSimbols[i]}` + '</div>';
+        += '<div class="btn key" data-keys ="Alt">'
+        + `${listSimbols[i]}`
+        + '</div>';
     } else if (listSimbols[i] === 'ArrowUp') {
       btn
         += '<div class="btn key" data-keys="'
@@ -244,35 +364,102 @@ function InsertButtons() {
 // символы shift
 function VisibleShift() {
   if (lang) {
-    Array.from(document.getElementsByClassName('shift')).forEach((element) => {element.style.display = 'block'});
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => {element.style.display = 'none'});
+    Array.from(document.getElementsByClassName('shift')).forEach((elem) => {
+      elem.style.display = 'block';
+    });
+    Array.from(document.getElementsByClassName('shift-ru')).forEach(
+      (elem) => {
+        elem.style.display = 'none';
+      },
+    );
   } else {
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((element)=> {element.style.display = 'block'});
-    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'});
+    Array.from(document.getElementsByClassName('shift-ru')).forEach(
+      (elem) => {
+        elem.style.display = 'block';
+      },
+    );
+    Array.from(document.getElementsByClassName('shift')).forEach((elem) => {
+      // eslint-disable-next-line no-param-reassign
+      elem.style.display = 'none';
+    });
   }
 }
 function ShiftCharsInsert() {
   const arr = document.querySelectorAll('.key');
   for (let i = 0; i < 13; i++) {
-    arr[i].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[i]}` + '</span>');
-    arr[i].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[i]}` + '</span>');
+    arr[i].insertAdjacentHTML(
+      'afterbegin',
+      '<span class="shift">' + `${arrEn[i]}` + '</span>',
+    );
+    arr[i].insertAdjacentHTML(
+      'afterbegin',
+      '<span class="shift-ru">' + `${arrRu[i]}` + '</span>',
+    );
   }
-  arr[25].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[13]}` + '</span>');
-  arr[25].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[13]}` + '</span>');
-  arr[26].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[14]}` + '</span>');
-  arr[26].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[14]}` + '</span>');
-  arr[27].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[15]}` + '</span>');
-  arr[27].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[15]}` + '</span>');
-  arr[39].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[16]}` + '</span>');
-  arr[39].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[16]}` + '</span>');
-  arr[40].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[17]}` + '</span>');
-  arr[40].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[17]}` + '</span>');
-  arr[50].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[18]}` + '</span>');
-  arr[50].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[18]}` + '</span>');
-  arr[51].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[19]}` + '</span>');
-  arr[51].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[19]}` + '</span>');
-  arr[52].insertAdjacentHTML('afterbegin', '<span class="shift">' + `${arrEn[20]}` + '</span>');
-  arr[52].insertAdjacentHTML('afterbegin', '<span class="shift-ru">' + `${arrRu[20]}` + '</span>');
+  arr[25].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[13]}` + '</span>',
+  );
+  arr[25].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[13]}` + '</span>',
+  );
+  arr[26].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[14]}` + '</span>',
+  );
+  arr[26].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[14]}` + '</span>',
+  );
+  arr[27].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[15]}` + '</span>',
+  );
+  arr[27].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[15]}` + '</span>',
+  );
+  arr[39].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[16]}` + '</span>',
+  );
+  arr[39].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[16]}` + '</span>',
+  );
+  arr[40].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[17]}` + '</span>',
+  );
+  arr[40].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[17]}` + '</span>',
+  );
+  arr[50].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[18]}` + '</span>',
+  );
+  arr[50].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[18]}` + '</span>',
+  );
+  arr[51].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[19]}` + '</span>',
+  );
+  arr[51].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[19]}` + '</span>',
+  );
+  arr[52].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift">' + `${arrEn[20]}` + '</span>',
+  );
+  arr[52].insertAdjacentHTML(
+    'afterbegin',
+    '<span class="shift-ru">' + `${arrRu[20]}` + '</span>',
+  );
 }
 
 // Shift
@@ -280,26 +467,22 @@ function ShiftCharsInsert() {
 function ShiftActivity(e) {
   if (e.target.textContent === 'Shift') {
     shift = true;
-    console.log(shift)
   }
-  }
+}
 
 function ShiftActivityOf(e) {
   if (e.target.textContent === 'Shift') {
     shift = false;
-    
   }
 }
 function ShiftActivity2(e) {
   if (e.key === 'Shift') {
     shift = true;
-    console.log(shift)
   }
 }
 function ShiftActivityOf2(e) {
   if (e.key === 'Shift') {
     shift = false;
-    console.log(shift)
   }
 }
 document.addEventListener('mousedown', ShiftActivity);
@@ -314,7 +497,7 @@ VisibleShift();
 
 // подсветка кнопок
 function KeyDown(e) {
-  const target = e.key;
+  let target = e.key;
 
   const I = Array.from(board.querySelectorAll('[data-keys]'));
   for (let i = 0; i < I.length; i += 1) {
@@ -370,25 +553,55 @@ document.addEventListener('click', (e) => {
   return capLock;
 });
 
-
 let CaretPos = 0;
 function print(event) {
-  const target = event.target.getAttribute('data');
+  let target = event.target.getAttribute('data');
   if (target !== null && !capLock && !shift) {
-    text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(
-      CaretPos,
-      text.textContent.length,
-    ));
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target
+      + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
-  } else if (target !== null && (capLock||shift)) {
-    text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
+  } else if (target !== null && (capLock || shift) && !event.target.children.length) {
+    target = event.target.getAttribute('data');
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target.toUpperCase()
+      + text.textContent.slice(CaretPos, text.textContent.length);
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (shift && lang && event.target.children.length) {
+    target = event.target.children[1].textContent;
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target
+      + text.textContent.slice(CaretPos, text.textContent.length);
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (shift && !lang && event.target.children.length) {
+    target = event.target.children[0].textContent;
+
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target
+      + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
   }
 }
 function printKey(event) {
-  const target = event.key;
+  let target = event.key;
+  if (shift && lang) {
+    for (let i = 0; i < arr1En.length; i++) {
+      if (event.key === arr1En[i]) {
+        target = arr2En[i];
+      }
+    }
+  } else if (shift && !lang) {
+    for (let i = 0; i < arr1Ru.length; i++) {
+      if (event.key === arr1Ru[i]) {
+        target = arr2Ru[i];
+      }
+    }
+  }
+
   const list = [
     'Backspace',
     'Control',
@@ -430,11 +643,15 @@ function printKey(event) {
   ];
   if (list.indexOf(target) === -1 && !capLock && !shift) {
     // eslint-disable-next-line max-len
-    text.textContent = text.textContent.slice(0, CaretPos) + target + (text.textContent.slice(CaretPos, text.textContent.length));
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target
+      + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
-  } else if (list.indexOf(target) === -1 && (capLock || shift)) {
-    text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
+  } else if (list.indexOf(target) === -1 && (capLock || shift) && arr1En.indexOf(target) === -1 && arr1Ru.indexOf(target) === -1) {
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target.toUpperCase()
+      + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
   } else if (list.indexOf(target) !== -1 && target === 'Enter') {
@@ -463,11 +680,13 @@ function Backspace(e) {
       return;
     }
 
-    text.textContent = text.textContent.slice(0, CaretPos - 1) + text.textContent.slice(CaretPos, text.textContent.length);
+    text.textContent = text.textContent.slice(0, CaretPos - 1)
+      + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos--;
   } else if (target === 'Delete' && CaretPos !== text.textContent.length) {
-    text.textContent = text.textContent.slice(0, CaretPos) + text.textContent.slice(CaretPos + 1, text.textContent.length);
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + text.textContent.slice(CaretPos + 1, text.textContent.length);
     text.value = text.textContent;
   }
 }
@@ -475,12 +694,20 @@ function Backspace(e) {
 function Backspace2(e) {
   const target = e.key;
 
-  if (target === 'Backspace' && CaretPos === text.textContent.length && CaretPos !== 0) {
+  if (
+    target === 'Backspace'
+    && CaretPos === text.textContent.length
+    && CaretPos !== 0
+  ) {
     text.textContent = text.textContent.slice(0, CaretPos - 1);
     text.value = text.textContent;
 
     CaretPos--;
-  } else if (target === 'Backspace' && CaretPos !== text.textContent.length && CaretPos !== 0) {
+  } else if (
+    target === 'Backspace'
+    && CaretPos !== text.textContent.length
+    && CaretPos !== 0
+  ) {
     text.textContent = text.textContent.slice(0, CaretPos - 1) + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     --CaretPos;
@@ -489,10 +716,64 @@ function Backspace2(e) {
 document.addEventListener('keyup', Backspace2);
 board.addEventListener('click', Backspace);
 document.addEventListener('keyup', printKey);
-board.addEventListener('click', print);
+board.addEventListener('mouseup', print);
 
 // переход между языками
-const codeAllRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'];
+const codeAllRu = [
+  'ё',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'Tab',
+  'й',
+  'ц',
+  'у',
+  'к',
+  'е',
+  'н',
+  'г',
+  'ш',
+  'щ',
+  'з',
+  'х',
+  'ъ',
+  '\\',
+  'Delete',
+  'CapsLock',
+  'ф',
+  'ы',
+  'в',
+  'а',
+  'п',
+  'р',
+  'о',
+  'л',
+  'д',
+  'ж',
+  'э',
+  'Enter',
+  'Shift',
+  'я',
+  'ч',
+  'с',
+  'м',
+  'и',
+  'т',
+  'ь',
+  'б',
+  'ю',
+  '.',
+];
 const codeAllEn = [
   '`',
   '1',
@@ -546,42 +827,42 @@ const codeAllEn = [
   'm',
   ',',
   '.',
-  '/'];
+  '/',
+];
 
 function langChange(e) {
   if (e.ctrlKey && e.shiftKey && lang) {
     for (let i = 0; i < codeAllRu.length; i++) {
-      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\n' && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
+      if (
+        board.querySelectorAll('[data-keys]')[i].hasAttribute('data')
+        && board.querySelectorAll('[data-keys]')[i].getAttribute('data')
+          !== '\n'
+        && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t'
+      ) {
         board.querySelectorAll('[data-keys]')[i].textContent = codeAllRu[i];
         board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
-        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
+        board
+          .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
       }
 
       lang = false;
-    }ShiftCharsInsert();
+    }
+    ShiftCharsInsert();
     VisibleShift();
   } else if (e.ctrlKey && e.shiftKey && !lang) {
     for (let i = 0; i < codeAllEn.length; i++) {
       board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
       if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
         board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
-        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
+        board
+          .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
       }
 
       lang = true;
-    } ShiftCharsInsert();
+    }
+    ShiftCharsInsert();
     VisibleShift();
   }
 }
 
 document.addEventListener('keydown', langChange);
-
-
-
-function ShiftKey(e){
-if(shift){
-
-}
-}
-
-document.addEventListener('keyup',(e)=>{console.log(e.key)})

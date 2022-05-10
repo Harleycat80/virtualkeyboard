@@ -672,7 +672,9 @@ function SetLang() {
     VisibleShift();
   } else if (lang === 'true') {
     for (let i = 0; i < codeAllEn.length; i++) {
-      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data')
+      !== '\n'
+    && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
         board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
         board
           .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);

@@ -2,8 +2,8 @@ const text = document.createElement('textarea');
 let capLock = false;
 let shift = false;
 let lang;
-function Lang() {
-  if (!sessionStorage.getItem('lang')) {
+
+function Lang() {if (!sessionStorage.getItem('lang')) {
     sessionStorage.setItem('lang', 'true');
     lang = sessionStorage.getItem('lang');
   } else {
@@ -195,7 +195,6 @@ const codeAllEn = [
   '.',
   '/',
 ];
-
 const listSimbols = [
   '`',
   '1',
@@ -386,6 +385,7 @@ function InsertButtons() {
         + `${listSimbols[i]}`
         + '</div>';
     } else if (listSimbols[i] === ' ') {
+     
       btn
         += '<div class="btn key longest"  data-keys="'
         + `${listSimbols[i]}`

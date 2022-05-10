@@ -1,6 +1,6 @@
+/* eslint-disable no-useless-concat */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
-/* eslint-disable no-useless-concat */
 /* eslint-disable no-multi-assign */
 /* eslint-disable max-len */
 /* eslint-disable no-plusplus */
@@ -486,21 +486,12 @@ function InsertButtons() {
 // символы shift
 function VisibleShift() {
   if (lang) {
-    Array.from(document.getElementsByClassName('shift')).forEach((elem) => {
-      elem.style.display = 'block';
-    });
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((elem) => {
-      elem.style.display = 'none';
-    });
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'block'; });
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'none'; });
   } else {
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((elem) => {
-      elem.style.display = 'block';
-    });
-    Array.from(document.getElementsByClassName('shift')).forEach((elem) => {
-      // eslint-disable-next-line no-param-reassign
-      elem.style.display = 'none';
-    });
-  }
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'block'; });
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'; });
+
 }
 function ShiftCharsInsert() {
   const arr = document.querySelectorAll('.key');
@@ -741,12 +732,9 @@ function print(event) {
       + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
-  } else if (shift && !lang && event.target.children.length) {
-    target = event.target.children[0].textContent;
-
-    text.textContent = text.textContent.slice(0, CaretPos)
-      + target
-      + text.textContent.slice(CaretPos, text.textContent.length);
+  } else if (target !== null && (capLock || shift)) {
+    text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
+ 
     text.value = text.textContent;
     CaretPos++;
   }
@@ -890,3 +878,88 @@ document.addEventListener('keyup', printKey);
 board.addEventListener('mouseup', print);
 
 // переход между языками
+
+const codeAllRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'];
+const codeAllEn = [
+  '`',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'Tab',
+  'q',
+  'w',
+  'e',
+  'r',
+  't',
+  'y',
+  'u',
+  'i',
+  'o',
+  'p',
+  '[',
+  ']',
+  '\\',
+  'Delete',
+  'CapsLock',
+  'a',
+  's',
+  'd',
+  'f',
+  'g',
+  'h',
+  'j',
+  'k',
+  'l',
+  ';',
+  "'",
+  'Enter',
+  'Shift',
+  'z',
+  'x',
+  'c',
+  'v',
+  'b',
+  'n',
+  'm',
+  ',',
+  '.',
+  '/'];
+
+function langChange(e) {
+  if (e.ctrlKey && e.shiftKey && lang) {
+    for (let i = 0; i < codeAllRu.length; i++) {
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\n' && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
+        board.querySelectorAll('[data-keys]')[i].textContent = codeAllRu[i];
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
+      }
+
+      lang = false;
+    }ShiftCharsInsert();
+    VisibleShift();
+  } else if (e.ctrlKey && e.shiftKey && !lang) {
+    for (let i = 0; i < codeAllEn.length; i++) {
+      board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
+      }
+
+      lang = true;
+    } ShiftCharsInsert();
+    VisibleShift();
+  }
+}
+
+document.addEventListener('keydown', langChange);
+

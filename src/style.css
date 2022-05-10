@@ -20,7 +20,7 @@ h1{
    width: 80%;
    max-height: 40%;
    font-size: 40px;
-   
+   outline: black;
 }
 .board{
    display: flex;
@@ -81,12 +81,13 @@ text-transform:capitalize;
    from {
       border-radius: 5px;
       box-shadow: -1px 1px 2px 2px rgb(38, 35, 35);
+      background-color:rgb(85, 81, 81) ;
    }
    to {
 
-      border-radius: 8px;
-      box-shadow: 2px 0px 5px 5px rgb(38, 35, 35);
-
+      border-radius: 10px;
+      box-shadow: -1px 0px 5px 5px rgb(38, 35, 35);
+      background-color:rgb(49, 43, 43) ;
    }
 }
 

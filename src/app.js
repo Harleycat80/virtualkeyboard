@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-useless-concat */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
@@ -7,14 +8,16 @@
 const text = document.createElement('textarea');
 let capLock = false;
 let shift = false;
-let lang = function Lang() {
+let lang;
+function Lang() {
   if (!sessionStorage.getItem('lang')) {
     sessionStorage.setItem('lang', 'true');
     lang = sessionStorage.getItem('lang');
   } else {
-    return sessionStorage.getItem('lang');
+    lang = sessionStorage.getItem('lang');
   }
-};
+}
+document.addEventListener('DOMContentLoaded', Lang);
 
 const board = document.createElement('div');
 board.className = 'board';
@@ -356,7 +359,7 @@ const arr2Ru = [
   'Э',
   'Б',
   'Ю',
-  ',',
+  '!',
 ];
 
 function InsertButtons() {
@@ -483,15 +486,15 @@ function InsertButtons() {
   }
 }
 
-// символы shift
 function VisibleShift() {
-  if (lang) {
+  Lang();
+  if (lang === 'true') {
     Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'block'; });
     Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'none'; });
-  } else {
+  } else if (lang === 'false') {
     Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'block'; });
     Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'; });
-
+  }
 }
 function ShiftCharsInsert() {
   const arr = document.querySelectorAll('.key');
@@ -571,6 +574,50 @@ function ShiftCharsInsert() {
   );
 }
 
+function langChange(e) {
+  Lang();
+  if (e.ctrlKey && e.shiftKey && lang === 'true') {
+    for (let i = 0; i < codeAllRu.length; i++) {
+      if (
+        board.querySelectorAll('[data-keys]')[i].hasAttribute('data')
+        && board.querySelectorAll('[data-keys]')[i].getAttribute('data')
+          !== '\n'
+        && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t'
+      ) {
+        board.querySelectorAll('[data-keys]')[i].textContent = codeAllRu[i];
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board
+          .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
+        board.querySelectorAll('[data-keys]')[i].dataset.keys = codeAllRu[i];
+      }
+    }
+    ShiftCharsInsert();
+
+    sessionStorage.setItem('lang', 'false');
+    VisibleShift();
+  } else if (e.ctrlKey && e.shiftKey && lang === 'false') {
+    for (let i = 0; i < codeAllEn.length; i++) {
+      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data')
+      !== '\n'
+    && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
+        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
+        board
+          .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
+        board.querySelectorAll('[data-keys]')[i].dataset.keys = codeAllEn[i];
+        board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
+      }
+    }
+
+    ShiftCharsInsert();
+
+    sessionStorage.setItem('lang', 'true');
+    VisibleShift();
+  }
+}
+
+document.addEventListener('keydown', langChange);
+// символы shift
+
 // Shift
 
 function ShiftActivity(e) {
@@ -600,13 +647,13 @@ document.addEventListener('keydown', ShiftActivity2);
 document.addEventListener('keyup', ShiftActivityOf2);
 
 InsertButtons();
-
 ShiftCharsInsert();
 VisibleShift();
 
-function langChange(e) {
-  sessionStorage.getItem('lang');
-  if (e.ctrlKey && e.shiftKey && lang) {
+function SetLang() {
+  Lang();
+
+  if (lang === 'false') {
     for (let i = 0; i < codeAllRu.length; i++) {
       if (
         board.querySelectorAll('[data-keys]')[i].hasAttribute('data')
@@ -620,31 +667,25 @@ function langChange(e) {
           .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
         board.querySelectorAll('[data-keys]')[i].dataset.keys = codeAllRu[i];
       }
-
-      lang = false;
-      sessionStorage.setItem('lang', 'false');
     }
     ShiftCharsInsert();
     VisibleShift();
-  } else if (e.ctrlKey && e.shiftKey && !lang) {
+  } else if (lang === 'true') {
     for (let i = 0; i < codeAllEn.length; i++) {
-      board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
       if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
         board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
         board
           .querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
         board.querySelectorAll('[data-keys]')[i].dataset.keys = codeAllEn[i];
+        board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
       }
-
-      lang = true;
-      sessionStorage.setItem('lang', 'true');
     }
     ShiftCharsInsert();
     VisibleShift();
   }
 }
 
-document.addEventListener('keydown', langChange);
+document.addEventListener('DOMContentLoaded', SetLang);
 
 // подсветка кнопок
 function KeyDown(e) {
@@ -725,8 +766,15 @@ function print(event) {
       + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
     CaretPos++;
-  } else if (shift && lang && event.target.children.length) {
+  } else if (shift && lang === 'true' && event.target.children.length) {
     target = event.target.children[1].textContent;
+    text.textContent = text.textContent.slice(0, CaretPos)
+      + target
+      + text.textContent.slice(CaretPos, text.textContent.length);
+    text.value = text.textContent;
+    CaretPos++;
+  } else if (shift && lang === 'false' && event.target.children.length) {
+    target = event.target.children[0].textContent;
     text.textContent = text.textContent.slice(0, CaretPos)
       + target
       + text.textContent.slice(CaretPos, text.textContent.length);
@@ -734,20 +782,20 @@ function print(event) {
     CaretPos++;
   } else if (target !== null && (capLock || shift)) {
     text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
- 
+
     text.value = text.textContent;
     CaretPos++;
   }
 }
 function printKey(event) {
   let target = event.key;
-  if (shift && lang) {
+  if (shift && lang === 'true') {
     for (let i = 0; i < arr1En.length; i++) {
       if (event.key === arr1En[i]) {
         target = arr2En[i];
       }
     }
-  } else if (shift && !lang) {
+  } else if (shift && lang === 'false') {
     for (let i = 0; i < arr1Ru.length; i++) {
       if (event.key === arr1Ru[i]) {
         target = arr2Ru[i];
@@ -876,90 +924,3 @@ document.addEventListener('keyup', Backspace2);
 board.addEventListener('click', Backspace);
 document.addEventListener('keyup', printKey);
 board.addEventListener('mouseup', print);
-
-// переход между языками
-
-const codeAllRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'];
-const codeAllEn = [
-  '`',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '0',
-  '-',
-  '=',
-  'Backspace',
-  'Tab',
-  'q',
-  'w',
-  'e',
-  'r',
-  't',
-  'y',
-  'u',
-  'i',
-  'o',
-  'p',
-  '[',
-  ']',
-  '\\',
-  'Delete',
-  'CapsLock',
-  'a',
-  's',
-  'd',
-  'f',
-  'g',
-  'h',
-  'j',
-  'k',
-  'l',
-  ';',
-  "'",
-  'Enter',
-  'Shift',
-  'z',
-  'x',
-  'c',
-  'v',
-  'b',
-  'n',
-  'm',
-  ',',
-  '.',
-  '/'];
-
-function langChange(e) {
-  if (e.ctrlKey && e.shiftKey && lang) {
-    for (let i = 0; i < codeAllRu.length; i++) {
-      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data') && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\n' && board.querySelectorAll('[data-keys]')[i].getAttribute('data') !== '\t') {
-        board.querySelectorAll('[data-keys]')[i].textContent = codeAllRu[i];
-        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
-        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllRu[i]}`);
-      }
-
-      lang = false;
-    }ShiftCharsInsert();
-    VisibleShift();
-  } else if (e.ctrlKey && e.shiftKey && !lang) {
-    for (let i = 0; i < codeAllEn.length; i++) {
-      board.querySelectorAll('[data-keys]')[i].textContent = codeAllEn[i];
-      if (board.querySelectorAll('[data-keys]')[i].hasAttribute('data')) {
-        board.querySelectorAll('[data-keys]')[i].removeAttribute('data');
-        board.querySelectorAll('[data-keys]')[i].setAttribute('data', `${codeAllEn[i]}`);
-      }
-
-      lang = true;
-    } ShiftCharsInsert();
-    VisibleShift();
-  }
-}
-
-document.addEventListener('keydown', langChange);
-

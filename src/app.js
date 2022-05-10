@@ -609,7 +609,6 @@ function langChange(e) {
 }
 
 document.addEventListener('keydown', langChange);
-// символы shift
 
 // Shift
 
@@ -875,7 +874,7 @@ function Backspace(e) {
   if (target === 'Backspace' && CaretPos === text.textContent.length) {
     text.textContent = text.textContent.slice(0, CaretPos - 1);
     text.value = text.textContent;
-    CaretPos=-1;
+    CaretPos--;
   } else if (target === 'Backspace' && CaretPos !== text.textContent.length) {
     if (CaretPos === 0) {
       return;
@@ -884,7 +883,7 @@ function Backspace(e) {
     text.textContent = text.textContent.slice(0, CaretPos - 1)
       + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
-    CaretPos=-1;
+    CaretPos--;
   } else if (target === 'Delete' && CaretPos !== text.textContent.length) {
     text.textContent = text.textContent.slice(0, CaretPos)
       + text.textContent.slice(CaretPos + 1, text.textContent.length);

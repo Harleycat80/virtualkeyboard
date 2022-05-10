@@ -1,10 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-useless-concat */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
-/* eslint-disable no-multi-assign */
-/* eslint-disable max-len */
-/* eslint-disable no-plusplus */
 const text = document.createElement('textarea');
 let capLock = false;
 let shift = false;
@@ -501,76 +494,76 @@ function ShiftCharsInsert() {
   for (let i = 0; i < 13; i++) {
     arr[i].insertAdjacentHTML(
       'afterbegin',
-      '<span class="shift">' + `${arrEn[i]}` + '</span>',
+      '<span class="shift">' + arrEn[i] + '</span>',
     );
     arr[i].insertAdjacentHTML(
       'afterbegin',
-      '<span class="shift-ru">' + `${arrRu[i]}` + '</span>',
+      '<span class="shift-ru">' + arrRu[i] + '</span>',
     );
   }
   arr[25].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[13]}` + '</span>',
+    '<span class="shift">' + arrEn[13] + '</span>',
   );
   arr[25].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[13]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[13] + '</span>',
   );
   arr[26].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[14]}` + '</span>',
+    '<span class="shift">' + arrEn[14] + '</span>',
   );
   arr[26].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[14]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[14] + '</span>',
   );
   arr[27].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[15]}` + '</span>',
+    '<span class="shift">' + arrEn[15]+ '</span>',
   );
   arr[27].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[15]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[15] + '</span>',
   );
   arr[39].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[16]}` + '</span>',
+    '<span class="shift">' + arrEn[16] + '</span>',
   );
   arr[39].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[16]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[16] + '</span>',
   );
   arr[40].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[17]}` + '</span>',
+    '<span class="shift">' + arrEn[17] + '</span>',
   );
   arr[40].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[17]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[17] + '</span>',
   );
   arr[50].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[18]}` + '</span>',
+    '<span class="shift">' + arrEn[18] + '</span>',
   );
   arr[50].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[18]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[18] + '</span>',
   );
   arr[51].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[19]}` + '</span>',
+    '<span class="shift">' + arrEn[19] + '</span>',
   );
   arr[51].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[19]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[19] + '</span>',
   );
   arr[52].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift">' + `${arrEn[20]}` + '</span>',
+    '<span class="shift">' + arrEn[20] + '</span>',
   );
   arr[52].insertAdjacentHTML(
     'afterbegin',
-    '<span class="shift-ru">' + `${arrRu[20]}` + '</span>',
+    '<span class="shift-ru">' + arrRu[20] + '</span>',
   );
 }
 
@@ -882,7 +875,7 @@ function Backspace(e) {
   if (target === 'Backspace' && CaretPos === text.textContent.length) {
     text.textContent = text.textContent.slice(0, CaretPos - 1);
     text.value = text.textContent;
-    CaretPos--;
+    CaretPos=-1;
   } else if (target === 'Backspace' && CaretPos !== text.textContent.length) {
     if (CaretPos === 0) {
       return;
@@ -891,7 +884,7 @@ function Backspace(e) {
     text.textContent = text.textContent.slice(0, CaretPos - 1)
       + text.textContent.slice(CaretPos, text.textContent.length);
     text.value = text.textContent;
-    CaretPos--;
+    CaretPos=-1;
   } else if (target === 'Delete' && CaretPos !== text.textContent.length) {
     text.textContent = text.textContent.slice(0, CaretPos)
       + text.textContent.slice(CaretPos + 1, text.textContent.length);

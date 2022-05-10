@@ -70,10 +70,8 @@ text-transform:capitalize;
    background-color: rgb(75, 72, 72);
    animation: slide;
    animation-duration: 3s;
-   
 
 }
-
 .btn:focus{ 
    animation: slide;
    animation-duration: 3s;

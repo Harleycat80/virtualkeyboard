@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-concat */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
 /* eslint-disable no-multi-assign */
 /* eslint-disable max-len */
 /* eslint-disable no-plusplus */
@@ -7,10 +10,10 @@ let shift = false;
 let lang = true;
 const board = document.createElement('div');
 board.className = 'board';
-const instruction =document.createElement('h2');
-const instruction2 =document.createElement('h2');
-instruction2.textContent="Windows 10"
-instruction.textContent="Перeключениe языков Ctrl+Shift"
+const instruction = document.createElement('h2');
+const instruction2 = document.createElement('h2');
+instruction2.textContent = 'Windows 10';
+instruction.textContent = 'Перeключениe языков Ctrl+Shift';
 function InsertTextArea() {
   text.className = 'text';
   text.setAttribute('autofocus', 'true');
@@ -21,7 +24,6 @@ function InsertTextArea() {
 
   document.body.prepend(board);
   document.body.prepend(text);
-  
 }
 InsertTextArea();
 
@@ -244,11 +246,11 @@ function InsertButtons() {
 // символы shift
 function VisibleShift() {
   if (lang) {
-    Array.from(document.getElementsByClassName('shift')).forEach((element) => {element.style.display = 'block'});
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => {element.style.display = 'none'});
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'block'; });
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'none'; });
   } else {
-    Array.from(document.getElementsByClassName('shift-ru')).forEach((element)=> {element.style.display = 'block'});
-    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'});
+    Array.from(document.getElementsByClassName('shift-ru')).forEach((element) => { element.style.display = 'block'; });
+    Array.from(document.getElementsByClassName('shift')).forEach((element) => { element.style.display = 'none'; });
   }
 }
 function ShiftCharsInsert() {
@@ -280,26 +282,22 @@ function ShiftCharsInsert() {
 function ShiftActivity(e) {
   if (e.target.textContent === 'Shift') {
     shift = true;
-    console.log(shift)
   }
-  }
+}
 
 function ShiftActivityOf(e) {
   if (e.target.textContent === 'Shift') {
     shift = false;
-    
   }
 }
 function ShiftActivity2(e) {
   if (e.key === 'Shift') {
     shift = true;
-    console.log(shift)
   }
 }
 function ShiftActivityOf2(e) {
   if (e.key === 'Shift') {
     shift = false;
-    console.log(shift)
   }
 }
 document.addEventListener('mousedown', ShiftActivity);
@@ -370,7 +368,6 @@ document.addEventListener('click', (e) => {
   return capLock;
 });
 
-
 let CaretPos = 0;
 function print(event) {
   const target = event.target.getAttribute('data');
@@ -381,7 +378,7 @@ function print(event) {
     ));
     text.value = text.textContent;
     CaretPos++;
-  } else if (target !== null && (capLock||shift)) {
+  } else if (target !== null && (capLock || shift)) {
     text.textContent = text.textContent.slice(0, CaretPos) + target.toUpperCase() + (text.textContent.slice(CaretPos, text.textContent.length));
     text.value = text.textContent;
     CaretPos++;
@@ -575,13 +572,3 @@ function langChange(e) {
 }
 
 document.addEventListener('keydown', langChange);
-
-
-
-function ShiftKey(e){
-if(shift){
-
-}
-}
-
-document.addEventListener('keyup',(e)=>{console.log(e.key)})
